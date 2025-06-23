@@ -1,0 +1,61 @@
+// Arduino UNO + MAX9814 麦克风模块 + SG90 舵机
+// 功能：读取音频频率，根据频率偏差控制舵机调音
+
+#include <Servo.h>
+
+const int micPin = A0;       // MAX9814 接 A0
+const int servoPin = 9;      // SG90 舵机信号线接 D9
+Servo tunerServo;
+
+const float targetFreq = 392.0;  // 目标音高：G4 = 392Hz
+const int sampleWindow = 50;     // 采样窗口时间（毫秒）
+int servoPos = 90;               // 初始舵机位置
+
+void setup() {
+  Serial.begin(9600);
+  tunerServo.attach(servoPin);
+  tunerServo.write(servoPos);
+}
+
+void loop() {
+  float freq = detectFrequency();
+
+  if (freq > 50) {
+    Serial.print("Frequency: "); Serial.print(freq); Serial.print(" Hz");
+    float diff = freq - targetFreq;
+    Serial.print(" | Error: "); Serial.println(diff);
+
+    if (abs(diff) > 3) {
+      if (diff > 0) {
+        servoPos--;
+        if (servoPos < 60) servoPos = 60;
+      } else {
+        servoPos++;
+        if (servoPos > 120) servoPos = 120;
+      }
+      tunerServo.write(servoPos);
+      delay(500);
+    }
+  } else {
+    Serial.println("No signal");
+  }
+  delay(300);
+}
+
+float detectFrequency() {
+  unsigned long start = millis();
+  bool lastAbove = false;
+  int threshold = 512;
+  int crossings = 0;
+
+  while (millis() - start < sampleWindow) {
+    int val = analogRead(micPin);
+    bool above = val > threshold;
+    if (above != lastAbove) {
+      crossings++;
+      lastAbove = above;
+    }
+  }
+  float freq = (crossings / 2.0) * (1000.0 / sampleWindow);
+  return freq;
+}
