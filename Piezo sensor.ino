@@ -17,17 +17,17 @@ void loop() {
   float frequency = getFrequency();
 
   if (frequency > 50) {
-    Serial.print("当前频率: ");
+    Serial.print("Frequency ");
     Serial.print(frequency);
     Serial.println(" Hz");
   } else {
-    Serial.println("无效信号");
+    Serial.println("No signal");
   }
 
   delay(300);
 }
 
-// 零交叉法简易频率估计
+// Zero Crossing Detection 零交叉法简易频率估计
 float getFrequency() {
   unsigned long start = millis();
   int threshold = 512;
