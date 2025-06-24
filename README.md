@@ -7,4 +7,5 @@ Sensor part
 1.Testing of piezo sensor
 The piezo sensor can sometimes detect the string's frequnency when you put the whole sensor below string('Sometimes' means it always goes wrong).But if you stick the sensor on the sound box of the instrument(We use ukelele during the test).You will found it can't receive the shake of the string at all.It is not snesitive enough to detect the right pitch of the sound at all.So the test result is we can not use piezo sensor.
 
-2.Testing of microphone (MAX )
+2.Testing of microphone (MAX9814)
+The sensor is still otw.
