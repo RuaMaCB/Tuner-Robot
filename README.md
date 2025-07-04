@@ -2,7 +2,7 @@ A Soft-Robotic Auto-Tuner for String Instruments
 
 This project presents the design and prototyping of a universal robotic tuning device capable of automatically adjusting the pitch of various string instruments. By integrating a soft robotic gripper, a flexible transmission mechanism, and a pitch detection module based on microphone input, the system can adapt to different tuning pegs and provide real-time automatic tuning. 
 
-Sensor part
+Sensor module
 
 1.Testing of piezo sensor
 
@@ -15,3 +15,9 @@ You can find that the detection result is not accurate and sensitive.
 2.Testing of microphone (MAX9814)
 
 We are testing the microphone(MAX9814)now.
+
+Soft gripper module
+
+Insipred by three-jaw truck, we want to do some improvements on the design. And print or buy soft gripper to replace the hard jaw part.
+![image](https://github.com/user-attachments/assets/52682a97-1a34-4fa8-b0fc-55059406415f)
+
